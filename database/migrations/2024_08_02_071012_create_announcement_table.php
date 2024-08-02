@@ -11,9 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('announcement', function (Blueprint $table) {
+        Schema::create('announcements', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('announcement_title');
+            $table->string('content');
+            $table->string('attachment');
+            $table->string('image');
+            $table->boolean('stage');
+            $table->integer('announcement_category_id');
+            $table->integer('department_id');
+            $table->dateTime('publish_date', precision: 0);
+            $table->dateTime('remove_date', precision: 0);
+            $table->timestamps();  //auto create_at + update_at
         });
     }
 
