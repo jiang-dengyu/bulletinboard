@@ -47,6 +47,14 @@ class announcementController extends Controller
         announcement_model::where('id', $id)->update($validatedData); 
 
         $result = announcement_model::findOrFail($id);
-        return response()->json(['message' => 'Announcement created successfully','updated content'=> $result], 201);
+        return response()->json(['message' => 'Announcement updated successfully','updated content'=> $result], 201);
+    }
+
+    public function deleteAnnouncement(Request $request, string $id)
+    {
+        announcement_model::where('id',$id)->delete(); 
+
+        // $result = announcement_model::findOrFail($id);
+        return response()->json(['message' => 'Announcement deleted successfully'], 201);
     }
 }
