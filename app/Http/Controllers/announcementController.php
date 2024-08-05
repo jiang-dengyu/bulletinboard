@@ -10,13 +10,13 @@ class announcementController extends Controller
 {
     public function getAllAnnouncements()
     {
-        $result_announcement = announcement_model::with('category')->get();
+        $result_announcement = announcement_model::with('category','department')->get();
         return response()->json(['message' => 'Get announcement successfully', 'get result_announcement content'=> $result_announcement], 201);
     }
 
     public function getAnnouncementById(Request $request, string $id)
     {
-        $result = announcement_model::with('category')->findOrFail($id); 
+        $result = announcement_model::with('category','department')->findOrFail($id); 
 
         $output = [
             'id' => $result->id,
@@ -25,7 +25,7 @@ class announcementController extends Controller
             'attachment' => $result->attachment,
             'image' => $result->image,
             'stage' => $result->stage,
-            'department_id' => $result->department_id,
+            'department_id' => $result->department->department_name,
             'publish_date' => $result->publish_date,
             'remove_date' => $result->remove_date,
             'created_at' => $result->created_at,
