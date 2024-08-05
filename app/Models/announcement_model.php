@@ -23,7 +23,7 @@ class announcement_model extends Model
 
     public function category()
     {
-        return $this-> belongsTo(announcementCategory_modle::class, 'announcement_category_id');
+        return $this-> belongsTo(announcementCategory_model::class, 'announcement_category_id');
     }
 
     public function department()
