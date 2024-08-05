@@ -21,4 +21,8 @@ class announcement_model extends Model
         'remove_date'
     ];
 
+    public function category()
+    {
+        return $this-> belongsTo(announcementCategory_modle::class, 'announcement_category_id');
+    }
 }

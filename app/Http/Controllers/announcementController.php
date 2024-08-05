@@ -10,15 +10,29 @@ class announcementController extends Controller
 {
     public function getAllAnnouncements()
     {
-        return announcement_model::all();
+        $result_announcement = announcement_model::with('category')->get();
+        return response()->json(['message' => 'Get announcement successfully', 'get result_announcement content'=> $result_announcement], 201);
     }
 
     public function getAnnouncementById(Request $request, string $id)
     {
-        $result = announcement_model::where('id',$id)->get(); 
+        $result = announcement_model::with('category')->findOrFail($id); 
 
-        // $result = announcement_model::findOrFail($id);
-        return response()->json(['message' => 'Get announcement successfully', 'get content'=> $result], 201);
+        $output = [
+            'id' => $result->id,
+            'announcement_title' => $result->announcement_title,
+            'content' => $result->content,
+            'attachment' => $result->attachment,
+            'image' => $result->image,
+            'stage' => $result->stage,
+            'department_id' => $result->department_id,
+            'publish_date' => $result->publish_date,
+            'remove_date' => $result->remove_date,
+            'created_at' => $result->created_at,
+            'updated_at' => $result->updated_at,
+            'announcement_category_id' => $result->category->category_name 
+        ];
+        return response()->json(['message' => 'Get announcement successfully', 'get content'=> $output], 201);
     }
 
     public function createAnnouncement(Request $request)
