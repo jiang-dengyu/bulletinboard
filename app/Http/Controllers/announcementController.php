@@ -13,6 +13,14 @@ class announcementController extends Controller
         return announcement_model::all();
     }
 
+    public function getAnnouncementById(Request $request, string $id)
+    {
+        $result = announcement_model::where('id',$id)->get(); 
+
+        // $result = announcement_model::findOrFail($id);
+        return response()->json(['message' => 'Get announcement successfully', 'get content'=> $result], 201);
+    }
+
     public function createAnnouncement(Request $request)
     {
         $validatedData = $request->validate([
@@ -57,4 +65,6 @@ class announcementController extends Controller
         // $result = announcement_model::findOrFail($id);
         return response()->json(['message' => 'Announcement deleted successfully'], 201);
     }
+
+
 }

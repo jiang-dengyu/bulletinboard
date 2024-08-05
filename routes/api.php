@@ -9,6 +9,7 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::post('/announcement',[ announcementController::class,'createAnnouncement']);
+Route::get('/announcement/{id}',[ announcementController::class,'getAnnouncementById']);
 Route::get('/announcement',[ announcementController::class,'getAllAnnouncements']);
 Route::put('/announcement/{id}',[ announcementController::class,'updateAnnouncement']);
 Route::delete('/announcement/{id}',[ announcementController::class,'deleteAnnouncement']);
