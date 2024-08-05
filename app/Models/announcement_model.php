@@ -16,7 +16,7 @@ class announcement_model extends Model
         'image',
         'stage',
         'announcement_category_id',
-        'department_id',
+        'department',
         'publish_date',
         'remove_date'
     ];
@@ -25,10 +25,4 @@ class announcement_model extends Model
     {
         return $this-> belongsTo(announcementCategory_model::class, 'announcement_category_id');
     }
-
-    public function department()
-    {
-        return $this-> belongsTo(department_model::class, 'department_id');
-    }
-
 }

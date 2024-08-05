@@ -10,13 +10,13 @@ class announcementController extends Controller
 {
     public function getAllAnnouncements()
     {
-        $result_announcement = announcement_model::with('category','department')->get();
+        $result_announcement = announcement_model::with('category')->get();
         return response()->json(['message' => 'Get announcement successfully', 'get result_announcement content'=> $result_announcement], 201);
     }
 
     public function getAnnouncementById(Request $request, string $id)
     {
-        $result = announcement_model::with('category','department')->findOrFail($id); 
+        $result = announcement_model::with('category')->findOrFail($id); 
 
         $output = [
             'id' => $result->id,
@@ -25,7 +25,7 @@ class announcementController extends Controller
             'attachment' => $result->attachment,
             'image' => $result->image,
             'stage' => $result->stage,
-            'department_id' => $result->department->department_name,
+            'department' => $result->department,
             'publish_date' => $result->publish_date,
             'remove_date' => $result->remove_date,
             'created_at' => $result->created_at,
@@ -44,7 +44,7 @@ class announcementController extends Controller
             'image' => 'nullable|string|max:255', 
             'stage' => 'required|boolean',
             'announcement_category_id' => 'required|integer',
-            'department_id' => 'required|integer|',
+            'department' => 'required|string|max:255',
             'publish_date' => 'required|date|before_or_equal:remove_date',
             'remove_date' => 'required|date|after:publish_date',
         ]);
@@ -62,7 +62,7 @@ class announcementController extends Controller
             'image' => 'nullable|string|max:255', 
             'stage' => 'required|boolean',
             'announcement_category_id' => 'required|integer',
-            'department_id' => 'required|integer|',
+            'department' => 'required|string|max:255',
             'publish_date' => 'required|date|before_or_equal:remove_date',
             'remove_date' => 'required|date|after:publish_date',
         ]);
