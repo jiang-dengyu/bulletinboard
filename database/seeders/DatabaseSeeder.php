@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
-        announcementCategory_model::factory(5)->create();
+        // announcementCategory_model::factory(5)->create();
+        $this->call(announcementCategorySeeder::class);
     }
 }
