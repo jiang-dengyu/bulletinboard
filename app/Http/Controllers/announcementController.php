@@ -28,7 +28,25 @@ class announcementController extends Controller
         ]);
 
         $result = announcement_model::create($validatedData);
-        return response()->json(['message' => 'Announcement created successfully'], 201);
-            
+        return response()->json(['message' => 'Announcement created successfully', 'created content'=> $result], 201);
+    }
+
+    public function updateAnnouncement(Request $request, string $id)
+    {
+        $validatedData = $request->validate([
+            'announcement_title' => 'required|string|max:255',
+            'content' => 'required|string', 
+            'attachment' => 'nullable|string|max:255', 
+            'image' => 'nullable|string|max:255', 
+            'stage' => 'required|boolean',
+            'announcement_category_id' => 'required|integer',
+            'department_id' => 'required|integer|',
+            'publish_date' => 'required|date|before_or_equal:remove_date',
+            'remove_date' => 'required|date|after:publish_date',
+        ]);
+        announcement_model::where('id', $id)->update($validatedData); 
+
+        $result = announcement_model::findOrFail($id);
+        return response()->json(['message' => 'Announcement created successfully','updated content'=> $result], 201);
     }
 }

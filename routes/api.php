@@ -10,3 +10,4 @@ Route::get('/user', function (Request $request) {
 
 Route::post('/announcement',[ announcementController::class,'createAnnouncement']);
 Route::get('/announcement',[ announcementController::class,'getAllAnnouncements']);
+Route::put('/announcement/{id}',[ announcementController::class,'updateAnnouncement']);
