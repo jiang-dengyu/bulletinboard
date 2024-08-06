@@ -12,7 +12,8 @@ use App\Http\Controllers\authController;
 
 /*users authentication*/
 Route::get('/users',[authController::class,'getAllUsers']);
-
+Route::get('/users/{param}',[authController::class,'getUserBy']);
+Route::post('/users',[authController::class,'creatUser']);
 
 /*announcement*/
 Route::post('/announcement',[ announcementController::class,'createAnnouncement']);
