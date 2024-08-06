@@ -194,8 +194,10 @@ class announcementController extends Controller
     public function deleteAnnouncement(Request $request, string $id)
     {
         try{
-            announcement_model::where('id',$id)->delete(); 
-            return response()->json(['message' => 'Announcement deleted successfully'], 201);
+            // $announcement = announcement_model::where('id',$id)->delete();            
+            $announcement = announcement_model::find($id);
+            $announcement->delete(); 
+            return response()->json(['message' => 'Announcement deleted successfully','deleted_announcement' => $announcement], 201);
         }catch(\Exception $e){
             return response()->json([
                 'error' => 'An error occurred.',
