@@ -13,7 +13,8 @@ use App\Http\Controllers\authController;
 /*users authentication*/
 Route::get('/users',[authController::class,'getAllUsers']);
 Route::get('/users/{param}',[authController::class,'getUserBy']);
-Route::post('/users',[authController::class,'creatUser']);
+Route::post('/users/signUp',[authController::class,'creatUser']);
+Route::post('/users/signIn',[authController::class,'signIn']);
 
 /*announcement*/
 Route::post('/announcement',[ announcementController::class,'createAnnouncement']);
