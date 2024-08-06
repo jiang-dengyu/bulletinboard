@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\announcementController;
 use App\Http\Controllers\authController;
-
+use App\Http\Middleware\tokenAuth;
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -19,6 +19,6 @@ Route::post('/users/signIn',[authController::class,'signIn']);
 /*announcement*/
 Route::post('/announcement',[ announcementController::class,'createAnnouncement']);
 Route::get('/announcement/{id}',[ announcementController::class,'getAnnouncementById']);
-Route::get('/announcement',[ announcementController::class,'getAllAnnouncements']);
+Route::get('/announcement',[ announcementController::class,'getAllAnnouncements'])->middleware('auth:sanctum');
 Route::put('/announcement/{id}',[ announcementController::class,'updateAnnouncement']);
 Route::delete('/announcement/{id}',[ announcementController::class,'deleteAnnouncement']);
