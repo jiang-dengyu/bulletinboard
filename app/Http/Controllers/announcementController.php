@@ -4,18 +4,28 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 
 use App\Models\announcement_model;
+use App\Http\Services\announcementService;
 
 class announcementController extends Controller
 {
+    //dependency injection : announcementService
+    protected $announcementService;
+    public function __construct(announcementService $announcementService)
+    {
+        $this->announcementService = $announcementService;
+    }
+
     //取得所有資料
     public function getAllAnnouncements()
     {
         try{
             $result_announcement = announcement_model::with('category')->get();
-            
-            return response()->json(['message' => 'Get announcement successfully', 'get result_announcement content'=> $result_announcement], 201);
+            return $result_announcement;
+            // return response()->json(['message' => 'Get announcement successfully', 'get result_announcement content'=> $result_announcement], 201);
         }
         catch (\Exception $e) {
             return response()->json([
@@ -57,17 +67,6 @@ class announcementController extends Controller
     //新建一筆資料
     public function createAnnouncement(Request $request)
     {
-        // $validatedData = $request->validate([
-        //     'announcement_title' => 'required|string|max:255',
-        //     'content' => 'required|string', 
-        //     'attachment' => 'nullable|string|max:255', 
-        //     'image' => 'nullable|string|max:255', 
-        //     'stage' => 'required|boolean',
-        //     'announcement_category_id' => 'required|integer',
-        //     'department' => 'required|string|max:255',
-        //     'publish_date' => 'required|date|before_or_equal:remove_date',
-        //     'remove_date' => 'required|date|after:publish_date',
-        // ]);
         $validator = Validator::make(
             [
                 'announcement_title'=>$request->announcement_title,
@@ -84,8 +83,8 @@ class announcementController extends Controller
             [
                 'announcement_title' => 'required|string|max:255',
                 'content' => 'required|string', 
-                'attachment' => 'nullable|string|max:255', 
-                'image' => 'nullable|string|max:255', 
+                'attachment' => 'nullable|file|max:255', 
+                'image' => 'nullable|image|max:255', 
                 'stage' => 'required|boolean',
                 'announcement_category_id' => 'required|integer',
                 'department' => 'required|string|max:255',
@@ -106,12 +105,26 @@ class announcementController extends Controller
         );
         //驗證沒通過就結束
         if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);;
+            return response()->json(['errors' => $validator->errors()], 422);
         }
 
         //重新調閱request body進行資料處理
         try{
+            // To get validated data form validator instance.
             $validatedData =  $request->all();
+            //storage the path into validated array.
+            if ($request->hasFile('attachment')) {
+                $getFileName = pathinfo($request->attachment->getClientOriginalName(),PATHINFO_FILENAME);
+                $getFileExtesion = pathinfo($request->attachment->getClientOriginalName(),PATHINFO_EXTENSION);
+                $newFileName = $getFileName . Carbon::now('Asia/Taipei')->format('_YmdHis') . '.' . $getFileExtesion;
+                $newFilePath = 'anoouncementFile/' . Carbon::now('Asia/Taipei')->format('Y/m/d');
+                //Storage into storage\app\public\announcementFile director
+                Storage::disk('public')->putFileAs($newFilePath,$request->attachment, $newFileName);
+                $validatedData['attachment'] = $newFilePath.'/'.$newFileName ;
+            }
+            if ($request->hasFile('image')) {
+                $validatedData['image'] = $this->announcementService->fileUploadProcessing($request->file('image'), 'announcementImage');        
+            }
             $result = announcement_model::create($validatedData);
             return response()->json(['message' => 'Announcement created successfully', 'created content'=> $result], 201);
         }catch (\Exception $e){
@@ -124,17 +137,6 @@ class announcementController extends Controller
     //更新一筆資料
     public function updateAnnouncement(Request $request, string $id)
     {
-        // $validatedData = $request->validate([
-        //     'announcement_title' => 'required|string|max:255',
-        //     'content' => 'required|string', 
-        //     'attachment' => 'nullable|string|max:255', 
-        //     'image' => 'nullable|string|max:255', 
-        //     'stage' => 'required|boolean',
-        //     'announcement_category_id' => 'required|integer',
-        //     'department' => 'required|string|max:255',
-        //     'publish_date' => 'required|date|before_or_equal:remove_date',
-        //     'remove_date' => 'required|date|after:publish_date',
-        // ]);
         $validator = Validator::make(
             [
                 'announcement_title'=>$request->announcement_title,
@@ -188,7 +190,6 @@ class announcementController extends Controller
                 'message' => $e->getMessage()
             ], 500);
         }
-        
     }
     //刪除一筆資料
     public function deleteAnnouncement(Request $request, string $id)
@@ -205,4 +206,5 @@ class announcementController extends Controller
             ], 500);
         }
     }
+
 }

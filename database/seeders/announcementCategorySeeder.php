@@ -13,6 +13,8 @@ class announcementCategorySeeder extends Seeder
      */
     public function run(): void
     {
+        DB::table('announcementCategories')->delete();
+        DB::statement('DBCC CHECKIDENT (announcementCategories, reseed, 0)');
         DB::table('announcementCategories')->insert([
             ['category_name' => 'category aa'],
             ['category_name' => 'category bb'],
