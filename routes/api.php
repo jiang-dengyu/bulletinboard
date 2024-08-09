@@ -18,7 +18,7 @@ Route::post('/users/signIn',[authController::class,'signIn']);
 
 /*announcement*/
 Route::post('/announcement',[ announcementController::class,'createAnnouncement']);
-Route::get('/announcement/{id}',[ announcementController::class,'getAnnouncementById']);
+Route::post('/announcement/searching',[ announcementController::class,'getAnnouncementById']);
 Route::get('/announcement',[ announcementController::class,'getAllAnnouncements'])->middleware('auth:sanctum');
 Route::put('/announcement/{id}',[ announcementController::class,'updateAnnouncement']); //remember to add _method = PUT and chose POST HTTP requet in form-data in postman 
 Route::delete('/announcement/{id}',[ announcementController::class,'deleteAnnouncement']);

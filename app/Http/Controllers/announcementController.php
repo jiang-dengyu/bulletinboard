@@ -37,12 +37,30 @@ class announcementController extends Controller
         }
     }
     //查詢一筆資料
-    public function getAnnouncementById(Request $request, string $id)
+    public function getAnnouncementById(Request $request)
     {
         try{
-            $result = announcement_model::with('category')->findOrFail($id); 
+            $query = announcement_model::query();
+            if ($request->id) {
+                $query->where('id', $request->id);
+            };
+            if ($request->announcement_category_id) {
+                $query->where('announcement_category_id', $request->announcement_category_id);
+            };
+            if ($request->department) {
+                $query->where('department', $request->department);
+            };
+            if ($request->publish_date) {
+                $query->whereDate('publish_date', $request->publish_date);
+            };
+            if ($request->keyword) {
+                $query->where('content','LIKE', '%'.$request->keyword.'%');
+            };
 
-            $output = [
+            $results = $query->get();
+            
+            $output = $results->map(function ($result) {
+                return [
                 'id' => $result->id,
                 'announcement_title' => $result->announcement_title,
                 'content' => $result->content,
@@ -55,7 +73,8 @@ class announcementController extends Controller
                 'created_at' => $result->created_at,
                 'updated_at' => $result->updated_at,
                 'announcement_category_id' => $result->category->category_name 
-            ];
+                ];
+            });
             return response()->json(['message' => 'Get announcement successfully', 'get content'=> $output], 201);
         }
         catch (\Exception $e) {
@@ -63,8 +82,7 @@ class announcementController extends Controller
                 'error' => 'An error occurred.',
                 'message' => $e->getMessage()
             ], 500);
-        }
-        
+        } 
     }
     //新建一筆資料
     public function createAnnouncement(announcementCreateRequest $request)
