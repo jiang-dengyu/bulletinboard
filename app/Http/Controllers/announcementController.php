@@ -22,12 +22,15 @@ class announcementController extends Controller
     }
 
     //取得所有資料
-    public function getAllAnnouncements()
+    public function getAllAnnouncements(Request $request)
     {
         try{
-            $result_announcement = announcement_model::with('category')->get();
-            return $result_announcement;
-            // return response()->json(['message' => 'Get announcement successfully', 'get result_announcement content'=> $result_announcement], 201);
+            if($request->page == 0 || $request->page === null){
+                $result_announcement = announcement_model::with('category')->get();
+            }else{
+                $result_announcement = announcement_model::with('category')->paginate(2);
+            }
+            return response()->json(['message' => 'Get announcement successfully', 'get result_announcement content'=> $result_announcement], 201);
         }
         catch (\Exception $e) {
             return response()->json([
