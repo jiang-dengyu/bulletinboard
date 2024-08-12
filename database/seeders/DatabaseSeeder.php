@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use App\Models\announcementCategory_model;
+use App\Models\announcement_model;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -23,5 +24,6 @@ class DatabaseSeeder extends Seeder
         // ]);
         // announcementCategory_model::factory(5)->create();
         $this->call(announcementCategorySeeder::class);
+        $this->call(announcementSeeder::class);
     }
 }
