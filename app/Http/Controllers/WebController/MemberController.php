@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\WebController;
 
 use App\Http\Controllers\Controller;
+use APP\Http\Services\MemberExportService;
 use App\Models\Member;
 use Illuminate\Http\Request;
 
@@ -39,5 +40,19 @@ class MemberController extends Controller
     {
         $members = Member::all();
         return view('member.index', compact('members'));
+    }
+
+    //member匯出成excel (defual格式)
+    public function memberExportXlsxDefault(){
+        $export         = new MemberExport();
+        $tempFilePath   = $export->exportXlsxDefault();
+        return reponse()->download($tempFilePath, 'members.xlsx')->deletFileAfterSend(true);
+    }
+
+    //member匯出成excel (defual格式)
+    public function memberexportXlsxGroup(){
+        $export         = new MemberExport();
+        $tempFilePath   = $export->exportXlsxGroup();
+        return reponse()->download($tempFilePath, 'members_grouped.xlsx')->deletFileAfterSend(true);
     }
 }

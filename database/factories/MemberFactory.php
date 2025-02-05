@@ -21,12 +21,12 @@ class MemberFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->name,
+            'name'      => $this->faker->name,
             'birthdate' => $this->faker->date('Y-m-d', '2000-01-01'),
             'birthtime' =>$this->faker->time('H:i'), 
-            'phone' => $this->faker->phoneNumber,
-            'address' => $this->faker->address,
-            'email' =>$this->faker->safeEmail,
+            'phone'     => $this->faker->phoneNumber,
+            'address'   => $this->faker->address,
+            'email'     =>$this->faker->safeEmail,
         ];
     }
 }
