@@ -25,5 +25,6 @@ class DatabaseSeeder extends Seeder
         // announcementCategory_model::factory(5)->create();
         $this->call(announcementCategorySeeder::class);
         $this->call(announcementSeeder::class);
+        $this->call(MemberSeeder::class);
     }
 }
