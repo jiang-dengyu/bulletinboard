@@ -7,6 +7,8 @@
 </head>
 <body>
     <h1>會員列表</h1>
+    <a href="{{ route('members.exportXlsxDefault') }}">匯出 Excel - 一般格式</a>
+    <a href="{{ route('members.exportXlsxGrouped') }}">匯出 Excel - 地址合併</a>
 
     @if(session('success'))
         <div style="color:green;">
