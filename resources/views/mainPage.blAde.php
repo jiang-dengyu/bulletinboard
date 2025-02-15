@@ -1,0 +1,10 @@
+@extends('layouts.app')
+
+@section('title', 'Main Page')
+
+@section('content')
+    <div class="container">
+        <h1>Welcome to the Main Page</h1>
+        <p>This page does not require any parameters.</p>
+    </div>
+@endsection

@@ -4,8 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WebController\MemberController;
 
 Route::get('/', function () {  return view('welcome');  });
-Route::get('/main_page', function(){  return view('mainPage');  });
-Route::get('/users_list', function() {  return view('usersList');  });
+Route::get('/mainPage', function(){  return view('mainPage');  })->name('home');
+Route::get('/usersList', function() {  return view('usersList');  });
 
 //Member
 Route::get('/member/create', [MemberController::class, 'create'])->name('member.create');
