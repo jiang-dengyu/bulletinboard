@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WebController\MemberController;
 use App\Http\Controllers\RedisController;
+use App\Http\Controllers\UploadController;
 
 Route::get('/', function () {  return view('welcome');  });
 Route::get('/mainPage', function(){  return view('mainPage');  })->name('home');
@@ -20,4 +21,8 @@ Route::get('/open_api', [OpenApiController::class, 'showWeather']);
 
 //Redis
 Route::get('/redis-test', [RedisController::class, 'testRedis']);
+
+//sftp
+Route::post('/upload', [UploadController::class, 'uploadFile']);
+
 
