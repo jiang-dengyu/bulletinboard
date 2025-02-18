@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WebController\MemberController;
+use App\Http\Controllers\RedisController;
 
 Route::get('/', function () {  return view('welcome');  });
 Route::get('/mainPage', function(){  return view('mainPage');  })->name('home');
@@ -16,3 +17,7 @@ Route::get('/member/export/grouped', [MemberController::class, 'memberExportXlsx
 
 //OpenApi
 Route::get('/open_api', [OpenApiController::class, 'showWeather']);
+
+//Redis
+Route::get('/redis-test', [RedisController::class, 'testRedis']);
+
