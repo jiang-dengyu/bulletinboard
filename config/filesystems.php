@@ -60,7 +60,7 @@ return [
             'host' => env('SFTP_HOST', '127.0.0.1'),
             'username' => env('SFTP_USERNAME', 'user'),
             'password' => env('SFTP_PASSWORD', '0000'),
-            'port' => env('SFTP_PORT', 22), // 預設 SFTP 端口 22
+            'port' => (int)env('SFTP_PORT', 22), // 預設 SFTP 端口 22
 
             // 可選設定
             'root' => env('SFTP_ROOT', '/C:/Users/user/sftp'), // SFTP 上傳的根目錄

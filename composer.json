@@ -9,8 +9,9 @@
         "laravel/framework": "^11.9",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
+        "league/flysystem-sftp-v3": "3.0",
         "phpoffice/phpspreadsheet": "^3.9",
-        "phpseclib/phpseclib": "^2.0",
+        "phpseclib/phpseclib": "3.0",
         "predis/predis": "^2.3"
     },
     "require-dev": {
