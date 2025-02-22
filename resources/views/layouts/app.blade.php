@@ -13,7 +13,9 @@
             <span class="welcome-text">Welcome</span>
         </div>
         <div class="nav-right">
+            <a href="{{ route('home') }}" class="btn-nav">Main Page</a>
             <a href="{{ route('member.index') }}" class="btn-nav">Member</a>
+            <a href="{{ route('queue.test') }}" class="btn-nav">Queue Test</a>
         </div>
     </nav>
 

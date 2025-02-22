@@ -1,50 +1,51 @@
-<!-- resources/views/member/index.blade.php -->
-<!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-    <meta charset="UTF-8">
-    <title>會員列表</title>
-</head>
-<body>
-    <h1>會員列表</h1>
-    <a href="{{ route('member.exportXlsxDefault') }}">匯出 Excel - 一般格式</a>
-    <a href="{{ route('member.exportXlsxGrouped') }}">匯出 Excel - 地址合併</a>
+@extends('layouts.app')
 
-    @if(session('success'))
-        <div style="color:green;">
-            {{ session('success') }}
+@section('title', '會員列表')
+
+@section('content')
+    <div class="container">
+        <h1>會員列表</h1>
+        
+        <div class="export-links">
+            <a href="{{ route('member.exportXlsxDefault') }}" class="btn">匯出 Excel - 一般格式</a>
+            <a href="{{ route('member.exportXlsxGrouped') }}" class="btn">匯出 Excel - 地址合併</a>
         </div>
-    @endif
 
-    <table border="1" cellpadding="8" cellspacing="0">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>姓名</th>
-                <th>生日日期</th>
-                <th>生日時間</th>
-                <th>電話</th>
-                <th>地址</th>
-                <th>Email</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse ($members as $member)
+        @if(session('success'))
+            <div class="alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        <table class="member-table">
+            <thead>
                 <tr>
-                    <td>{{ $member->id }}</td>
-                    <td>{{ $member->name }}</td>
-                    <td>{{ $member->birthdate }}</td>
-                    <td>{{ $member->birthtime }}</td>
-                    <td>{{ $member->phone }}</td>
-                    <td>{{ $member->address }}</td>
-                    <td>{{ $member->email }}</td>
+                    <th>ID</th>
+                    <th>姓名</th>
+                    <th>生日日期</th>
+                    <th>生日時間</th>
+                    <th>電話</th>
+                    <th>地址</th>
+                    <th>Email</th>
                 </tr>
-            @empty
-                <tr>
-                    <td colspan="7">目前沒有會員資料</td>
-                </tr>
-            @endforelse
-        </tbody>
-    </table>
-</body>
-</html>
+            </thead>
+            <tbody>
+                @forelse ($members as $member)
+                    <tr>
+                        <td>{{ $member->id }}</td>
+                        <td>{{ $member->name }}</td>
+                        <td>{{ $member->birthdate }}</td>
+                        <td>{{ $member->birthtime }}</td>
+                        <td>{{ $member->phone }}</td>
+                        <td>{{ $member->address }}</td>
+                        <td>{{ $member->email }}</td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="7" class="no-data">目前沒有會員資料</td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
+@endsection

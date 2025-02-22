@@ -84,3 +84,55 @@ footer {
   background: #ddd;
   margin-top: 20px;
 }
+
+.export-links {
+  margin-bottom: 15px;
+}
+
+.export-links .btn {
+  display: inline-block;
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  margin-right: 10px;
+  transition: 0.3s;
+}
+
+.export-links .btn:hover {
+  background-color: #0056b3;
+}
+
+/* 訊息框 */
+.alert-success {
+  color: green;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+/* 會員列表表格 */
+.member-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+.member-table th,
+.member-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.member-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+/* 當沒有資料時 */
+.no-data {
+  text-align: center;
+  font-weight: bold;
+  color: red;
+}
