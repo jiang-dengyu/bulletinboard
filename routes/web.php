@@ -24,7 +24,8 @@ Route::get('/open_api', [OpenApiController::class, 'showWeather']);
 Route::get('/redis-test', [RedisController::class, 'testRedis']);
 
 //sftp
-Route::post('/upload', [UploadController::class, 'uploadFile']);
+Route::get('/sftp-test', [UploadController::class, 'index'])->name('sftp.test');
+Route::post('/upload', [UploadController::class, 'uploadFile'])->name('sftp.upload');
 
 //queue test
 Route::get('/queue-test', [QueueTestController::class, 'index'])->name('queue.test');

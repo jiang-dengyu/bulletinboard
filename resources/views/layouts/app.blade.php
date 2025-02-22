@@ -16,6 +16,7 @@
             <a href="{{ route('home') }}" class="btn-nav">Main Page</a>
             <a href="{{ route('member.index') }}" class="btn-nav">Member</a>
             <a href="{{ route('queue.test') }}" class="btn-nav">Queue Test</a>
+            <a href="{{ route('sftp.test') }}" class="btn-nav">SFTP Test</a>
         </div>
     </nav>
 

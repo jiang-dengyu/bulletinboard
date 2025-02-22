@@ -7,6 +7,11 @@ use Illuminate\Support\Facades\Storage;
 
 class UploadController extends Controller
 {
+    public function index()
+    {
+        return view('sftpTest');
+    } 
+     
     public function uploadFile(Request $request)
     {
         // 確保請求內有檔案
