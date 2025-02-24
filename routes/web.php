@@ -5,6 +5,8 @@ use App\Http\Controllers\WebController\MemberController;
 use App\Http\Controllers\RedisController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\QueueTestController;
+use App\Http\Controllers\WebSocketController;
+
 
 Route::get('/', function () {  return view('welcome');  });
 Route::get('/mainPage', function(){  return view('mainPage');  })->name('home');
@@ -30,4 +32,8 @@ Route::post('/upload', [UploadController::class, 'uploadFile'])->name('sftp.uplo
 //queue test
 Route::get('/queue-test', [QueueTestController::class, 'index'])->name('queue.test');
 Route::post('/queue-send', [QueueTestController::class, 'sendEmail'])->name('queue.send');
+
+//socket
+Route::post('/websocket/send', [WebSocketController::class, 'sendMessage']);
+
 
