@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Default Title')</title>
     @vite(['resources/css/app.css'])
+    @yield('styles')
 </head>
 <body>
     <nav class="navbar">
@@ -17,6 +18,7 @@
             <a href="{{ route('member.index') }}" class="btn-nav">Member</a>
             <a href="{{ route('queue.test') }}" class="btn-nav">Queue Test</a>
             <a href="{{ route('sftp.test') }}" class="btn-nav">SFTP Test</a>
+            <a href="{{ route('chat.index') }}" class="btn-nav">Chat</a>
         </div>
     </nav>
 
@@ -27,5 +29,6 @@
     <footer>
         <p>&copy; {{ date('Y') }} My Website</p>
     </footer>
+    @yield('scripts')
 </body>
 </html>

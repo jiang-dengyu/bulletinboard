@@ -34,6 +34,7 @@ Route::get('/queue-test', [QueueTestController::class, 'index'])->name('queue.te
 Route::post('/queue-send', [QueueTestController::class, 'sendEmail'])->name('queue.send');
 
 //socket
-Route::post('/websocket/send', [WebSocketController::class, 'sendMessage']);
+Route::get('/websocket/index', [WebSocketController::class, 'index'])->name('chat.index');
+Route::post('/websocket/send', [WebSocketController::class, 'sendMessage'])->name('chat.send');
 
 
