@@ -55,6 +55,17 @@ return [
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
             'throw' => false,
         ],
+        'sftp' => [
+            'driver' => 'sftp',
+            'host' => env('SFTP_HOST', '127.0.0.1'),
+            'username' => env('SFTP_USERNAME', 'user'),
+            'password' => env('SFTP_PASSWORD', '0000'),
+            'port' => (int)env('SFTP_PORT', 22), // 預設 SFTP 端口 22
+
+            // 可選設定
+            'root' => env('SFTP_ROOT', '/C:/Users/user/sftp'), // SFTP 上傳的根目錄
+            'timeout' => 30, // 連線超時（秒）
+        ],
 
     ],
 

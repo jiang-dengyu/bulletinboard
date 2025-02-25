@@ -1,0 +1,138 @@
+/* 基本樣式 */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+/* 導覽列 */
+.navbar {
+  background-color: #ccc;
+  /* 灰色選單列 */
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  /* 左右對齊 */
+  align-items: center;
+}
+
+/* 左側 Welcome */
+.nav-left .welcome-text {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* 右側 Member 按鈕 */
+.nav-right .btn-nav {
+  padding: 8px 15px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+.nav-right .btn-nav:hover {
+  background-color: #0056b3;
+}
+
+/* 主要內容區塊 */
+.container {
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 20px;
+  background: white;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+/* 會員管理內容 */
+.member-container {
+  text-align: center;
+}
+
+.member-container h1 {
+  color: #333;
+}
+
+/* 按鈕區塊 */
+.buttons {
+  margin-top: 20px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 5px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background-color: #0056b3;
+}
+
+/* 頁腳 */
+footer {
+  text-align: center;
+  padding: 10px;
+  background: #ddd;
+  margin-top: 20px;
+}
+
+.export-links {
+  margin-bottom: 15px;
+}
+
+.export-links .btn {
+  display: inline-block;
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  margin-right: 10px;
+  transition: 0.3s;
+}
+
+.export-links .btn:hover {
+  background-color: #0056b3;
+}
+
+/* 訊息框 */
+.alert-success {
+  color: green;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+/* 會員列表表格 */
+.member-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+.member-table th,
+.member-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.member-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+/* 當沒有資料時 */
+.no-data {
+  text-align: center;
+  font-weight: bold;
+  color: red;
+}

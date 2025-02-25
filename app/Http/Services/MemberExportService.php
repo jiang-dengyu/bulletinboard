@@ -1,8 +1,9 @@
 <?php
-namespace App\Services;
+namespace App\Http\Services;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use App\Models\Member;
 
 class MemberExportService
@@ -26,10 +27,10 @@ class MemberExportService
             $row++;
         }
         //將填入的資料生成暫存檔，並回傳暫存檔的路徑給controller
-        $writer     = new xlsx($spreadsheet);
+        $writer     = new Xlsx($spreadsheet);
         $fileName   = 'member.xlsx';
         $path       = tempnam(sys_get_temp_dir(), $fileName);
-        $writer->save();
+        $writer->save($path);
 
         return $path;
     }
@@ -53,18 +54,24 @@ class MemberExportService
 
             $colIndex = 2; //第一直排是地址，要從第2橫排開始
             foreach( $membersWithSameAddress as $member){
-                $sheet->setCellValueByColumAndRow($colIndex, $row, $member->name);
+                // $sheet->setCellValueByColumnAndRow($colIndex, $row, $member->name);
+                // $colIndex++;
+                // $sheet->setCellValueByColumnAndRow($colIndex, $row, $member->birthdate);
+                // $colIndex++;
+                $columnLetter = chr(64 + $colIndex);
+                $sheet->setCellValue("{$columnLetter}{$row}", $member->name);
                 $colIndex++;
-                $sheet->setCellValueByColumAndRow($colIndex, $row, $member->birthdate);
+                $columnLetter = chr(64 + $colIndex);
+                $sheet->setCellValue("{$columnLetter}{$row}", $member->birthdate);
                 $colIndex++;
             }
             $row++;
         }
         //將填入的資料生成暫存檔，並回傳暫存檔的路徑給controller
-        $writer     = new xlsx($spreadsheet);
+        $writer     = new Xlsx($spreadsheet);
         $fileName   = 'member.xlsx';
         $path       = tempnam(sys_get_temp_dir(), $fileName);
-        $writer->save();
+        $writer->save($path);
 
         return $path;
     }

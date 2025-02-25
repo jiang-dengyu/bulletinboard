@@ -3,14 +3,20 @@
 namespace App\Http\Controllers\WebController;
 
 use App\Http\Controllers\Controller;
-use APP\Http\Services\MemberExportService;
+use App\Http\Services\MemberExportService;
 use App\Models\Member;
 use Illuminate\Http\Request;
 
 
 class MemberController extends Controller
 {
-    // 顯示表單
+    //dependency injection : announcementService
+    protected $MemberExportService;
+    public function __construct(MemberExportService $MemberExportService)
+    {
+        $this->MemberExportService = $MemberExportService;
+    }  
+  // 顯示表單
     public function create()
     {
         return view('member.create');
@@ -44,15 +50,14 @@ class MemberController extends Controller
 
     //member匯出成excel (defual格式)
     public function memberExportXlsxDefault(){
-        $export         = new MemberExport();
-        $tempFilePath   = $export->exportXlsxDefault();
-        return reponse()->download($tempFilePath, 'members.xlsx')->deletFileAfterSend(true);
+        $tempFilePath   = $this->MemberExportService->exportXlsxDefault();
+        return response()->download($tempFilePath, 'members.xlsx')->deleteFileAfterSend(true);
     }
 
     //member匯出成excel (defual格式)
     public function memberexportXlsxGroup(){
-        $export         = new MemberExport();
-        $tempFilePath   = $export->exportXlsxGroup();
-        return reponse()->download($tempFilePath, 'members_grouped.xlsx')->deletFileAfterSend(true);
+
+        $tempFilePath   = $this->MemberExportService->exportXlsxGroup();
+        return response()->download($tempFilePath, 'members_grouped.xlsx')->deleteFileAfterSend(true);
     }
 }
