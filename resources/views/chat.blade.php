@@ -35,9 +35,12 @@
             });
 
         function sendMessage() {
-            fetch("http://localhost:8000/websocket/send", {
+            fetch("http://127.0.0.1/websocket/send", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: { 
+                  "Content-Type": "application/json",
+                  "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content') 
+                },
                 body: JSON.stringify({ message: "Hello WebSocket" })
             });
         }
